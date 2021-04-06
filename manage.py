@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
+from django.db.backends.mysql.base import DatabaseWrapper 
+DatabaseWrapper.data_types['DateTimeField'] = 'datetime'
 import os
 import sys
 
