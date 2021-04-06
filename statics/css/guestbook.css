@@ -4,7 +4,7 @@
 #guestbook			{ margin:20px auto;	width:540px; }
 
 #guestbook form, 
-#guestbook table	{ width:100% }
+#guestbook table	{ width:100%; border-collapse:collapse; margin-top: 5px; }
 
 #guestbook table,	
 #guestbook table td { border:1px solid #333 }
