@@ -2,7 +2,7 @@
 @import "mysite.css";
 
 #user		{ margin:20px auto;	width:540px; }
-#join-form	{
+#signup-form	{
 	width:250px;
 	padding:10px;
 	border:1px solid #666;
@@ -17,7 +17,7 @@ label.block-label, fieldset legend	{ margin-bottom:3px }
 fieldset				{ border:none }
 input[type="submit"]	{ display:block; width:80px; margin:20px auto }
 
-#login-form	{
+#signin-form	{
 	width:180px;
 	padding:10px;
 	border:1px solid #666;
@@ -28,3 +28,11 @@ input[type="submit"]	{ display:block; width:80px; margin:20px auto }
 #user p		{ text-align:center; padding:10px}
 
 #user p.jr-success	{ height:200px }
+
+#update-form	{
+	width:250px;
+	padding:10px;
+	border:1px solid #666;
+	border-radius: 10px;
+	margin:50px auto;
+}

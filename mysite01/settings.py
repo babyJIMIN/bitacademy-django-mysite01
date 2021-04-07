@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'main',
     'guestbook',
     'board',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -117,3 +118,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'statics'),
 )
 STATIC_URL = '/assets/'
+
+
+# session_cookies(csrftoken) stored in memory
+SESSION_EXPIRE_AT_BROWSE_CLOSE = True
