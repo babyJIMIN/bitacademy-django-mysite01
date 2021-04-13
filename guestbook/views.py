@@ -22,5 +22,6 @@ def delete(request):
     guestbook.delete()
  
     return redirect('guestbook/')
+    
 def deleteform(request):
     return render(request, 'guestbook/deleteform.html')

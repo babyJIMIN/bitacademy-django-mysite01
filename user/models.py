@@ -1,7 +1,6 @@
 from MySQLdb import connect, OperationalError
 from MySQLdb.cursors import DictCursor
 
-
 def findbyno(no):
     try:
         db = conn()
@@ -10,7 +9,7 @@ def findbyno(no):
         cursor = db.cursor(DictCursor)
 
         # SQL 실행
-        sql = 'select name, email, gender from user where no = %s'
+        sql = 'select name, email, password, gender from user where no = %s'
         cursor.execute(sql, (no, ))
 
         # 결과 받아오기 -- fetchone!!!
@@ -79,7 +78,7 @@ def insert(name, email, password, gender):
         print(f'error: {e}')
 
 
-def update_name(name):
+def update_name(name, no):
     try:
         # 연결
         db = conn()
@@ -88,8 +87,8 @@ def update_name(name):
         cursor = db.cursor()
 
         # SQL 실행
-        sql = 'update user set name = %s'
-        cursor.execute(sql, (name, ))
+        sql = 'update user set name = %s where no = %s'
+        cursor.execute(sql, (name, no))
 
         # 결과 받아오기
         result = cursor.fetchone()
@@ -104,7 +103,7 @@ def update_name(name):
     except OperationalError as e:
         print(f'error: {e}')
 
-def update_password(password):
+def update_password(password, no):
     try:
         # 연결
         db = conn()
@@ -113,8 +112,8 @@ def update_password(password):
         cursor = db.cursor()
 
         # SQL 실행
-        sql = 'update user set password = %s'
-        cursor.execute(sql, (password, ))
+        sql = 'update user set password = %s where no = %s'
+        cursor.execute(sql, (password, no))
 
         # 결과 받아오기
         result = cursor.fetchone()
@@ -129,7 +128,7 @@ def update_password(password):
     except OperationalError as e:
         print(f'error: {e}')
 
-def update_gender(gender):
+def update_gender(gender, no):
     try:
         # 연결
         db = conn()
@@ -138,8 +137,8 @@ def update_gender(gender):
         cursor = db.cursor()
 
         # SQL 실행
-        sql = 'update user set gender = %s'
-        cursor.execute(sql, (gender, ))
+        sql = 'update user set gender = %s where no = %s'
+        cursor.execute(sql, (gender, no))
 
         # 결과 받아오기
         result = cursor.fetchone()

@@ -50,25 +50,33 @@ def updateform(request):
     authuser = request.session["authuser"]
     # Set a session value
     result = models.findbyno(authuser["no"])
+    data = {'authuser' : result}
 
-    return render(request, 'user/updateform.html')
+    return render(request, 'user/updateform.html', data)
 
 def update(request):
+    # Access Control
     authuser = request.session.get("authuser")
     if authuser is None:
         return redirect('index')
 
+    # Get a session value by its key (e.g. 'authuser'), raising a KeyError if the key is not present
+    authuser = request.session["authuser"]
+    # Set a session value
+    result = models.findbyno(authuser["no"])
+    data = {'authuser' : result}
+
     name = request.POST["name"]
-    password = request.POST["passowrd"]
+    password = request.POST["password"]
     gender = request.POST["gender"]
 
-    if(name != request.session["authuser"]["name"] ):
-        models.update_name(name)
+    if(name != authuser.get(name)):
+        models.update_name(name, authuser["no"])
 
-    if(password != request.session["authuser"]["password"] ):
-        models.update_name(password)
+    if(password != authuser.get(password)):
+        models.update_name(password, authuser["no"])
 
-    if(gender != request.session["authuser"]["gender"] ):
-        models.update_name(gender)
+    if(gender != authuser.get(gender)):
+        models.update_name(gender, authuser["no"])
 
-    return redirect('updateform')
+    return redirect('index')
