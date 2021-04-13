@@ -25,8 +25,8 @@ def signup(request):
     return redirect('user/joinsuccess')
 
 def signin(request):
-    email = request.POST['email']
-    password = request.POST['password']
+    email = request.POST.get('email', False)
+    password = request.POST.get('password', False)
 
     result = models.findby_email_and_password(email, password)
     if result is None:

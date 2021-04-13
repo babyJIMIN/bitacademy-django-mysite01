@@ -53,7 +53,9 @@
 				<!-- pager 추가 -->
 				
 				<div class="bottom">
-					<a href="/board/writeform" id="new-book">글쓰기</a>
+					{% if request.session.authuser is not None %}
+						<a href="/board/writeform" id="new-book">글쓰기</a>
+					{% endif %}
 				</div>				
 			</div>
 {% endblock %}
