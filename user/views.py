@@ -45,11 +45,10 @@ def updateform(request):
     authuser = request.session.get("authuser")
     if authuser is None:
         return redirect('index')
-    
-    # Get a session value by its key (e.g. 'authuser'), raising a KeyError if the key is not present
-    authuser = request.session["authuser"]
+
+    no = authuser["no"]
     # Set a session value
-    result = models.findbyno(authuser["no"])
+    result = models.findbyno(no)
     data = {'authuser' : result}
 
     return render(request, 'user/updateform.html', data)
@@ -60,23 +59,15 @@ def update(request):
     if authuser is None:
         return redirect('index')
 
-    # Get a session value by its key (e.g. 'authuser'), raising a KeyError if the key is not present
-    authuser = request.session["authuser"]
-    # Set a session value
-    result = models.findbyno(authuser["no"])
-    data = {'authuser' : result}
+    no = authuser['no']
+    name = request.POST.get('name')
+    password = request.POST.get('password')
+    gender = request.POST.get('gender')
 
-    name = request.POST["name"]
-    password = request.POST["password"]
-    gender = request.POST["gender"]
+    models.update(name, password, gender, no)
 
-    if(name != authuser.get(name)):
-        models.update_name(name, authuser["no"])
-
-    if(password != authuser.get(password)):
-        models.update_name(password, authuser["no"])
-
-    if(gender != authuser.get(gender)):
-        models.update_name(gender, authuser["no"])
+    # session 처리
+    update_authuser = models.findbyno(no)
+    request.session['authuser'] = update_authuser
 
     return redirect('index')

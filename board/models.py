@@ -34,7 +34,7 @@ def findbyno(postno):
 
         sql = '''
             select 
-                a.no, a.title, a.contents, a.hit, a.reg_date, a.g_no, a.o_no, a.depth, a.user_no, b.no
+                a.no, a.title, a.contents, a.hit, a.reg_date, a.g_no, a.o_no, a.depth, a.user_no
                 from board a, user b
                 where a.user_no = b.no
                 and a.no = %s
@@ -97,7 +97,7 @@ def delete(postno):
 
         cursor = db.cursor(DictCursor)
 
-        sql = 'delete board where no = %s'
+        sql = 'delete from board where no = %s'
         count = cursor.execute(sql, (postno, ))
 
         db.commit()

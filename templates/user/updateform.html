@@ -9,6 +9,7 @@
 
 				<form id="update-form" name="updateForm" method="post" action="/user/update">
 					{% csrf_token %}
+					<input type="hidden" name="no" value="{{ authuser.no }}">
 					<label class="block-label" for="name">이름</label>
 					<input id="name" name="name" type="text" value="{{ request.session.authuser.name }}">
 

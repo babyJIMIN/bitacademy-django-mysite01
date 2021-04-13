@@ -113,7 +113,7 @@ def delete(request):
     if authuser is None:
         return redirect('user/signin')
 
-    postno = request.GET.get('postno')
+    postno = request.GET.get('no')
     if postno is None:
         return HttpResponse('잘못된 접근입니다.')
 

@@ -51,6 +51,32 @@ def findby_email_and_password(email, password):
     except OperationalError as e:
         print(f'error: {e}')
 
+def findpw(no):
+    try:
+        # 연결
+        db = conn()
+
+        # cursor 생성
+        cursor = db.cursor(DictCursor)
+
+        # SQL 실행
+        sql = 'select password from user where no = %s'
+        cursor.execute(sql, (no, ))
+
+        # 결과 받아오기
+        result = cursor.fetchone()
+
+        # 자원 정리
+        cursor.close()
+        db.close()
+
+        # 결과 반환
+        return result
+
+    except OperationalError as e:
+        print(f'error: {e}')
+
+
 
 def insert(name, email, password, gender):
     try:
@@ -78,7 +104,7 @@ def insert(name, email, password, gender):
         print(f'error: {e}')
 
 
-def update_name(name, no):
+def update(name, password, gender, no):
     try:
         # 연결
         db = conn()
@@ -87,68 +113,18 @@ def update_name(name, no):
         cursor = db.cursor()
 
         # SQL 실행
-        sql = 'update user set name = %s where no = %s'
-        cursor.execute(sql, (name, no))
+        sql = 'update user set name = %s, password = %s, gender = %s where no = %s'
+        count = cursor.execute(sql, (name, password, gender, no))
 
-        # 결과 받아오기
-        result = cursor.fetchone()
-
-        # 자원 정리
-        cursor.close()
-        db.close()
-
-        # 결과 반환
-        return result
-
-    except OperationalError as e:
-        print(f'error: {e}')
-
-def update_password(password, no):
-    try:
-        # 연결
-        db = conn()
-
-        # cursor 생성
-        cursor = db.cursor()
-
-        # SQL 실행
-        sql = 'update user set password = %s where no = %s'
-        cursor.execute(sql, (password, no))
-
-        # 결과 받아오기
-        result = cursor.fetchone()
+        # commit
+        db.commit()
 
         # 자원 정리
         cursor.close()
         db.close()
 
         # 결과 반환
-        return result
-
-    except OperationalError as e:
-        print(f'error: {e}')
-
-def update_gender(gender, no):
-    try:
-        # 연결
-        db = conn()
-
-        # cursor 생성
-        cursor = db.cursor()
-
-        # SQL 실행
-        sql = 'update user set gender = %s where no = %s'
-        cursor.execute(sql, (gender, no))
-
-        # 결과 받아오기
-        result = cursor.fetchone()
-
-        # 자원 정리
-        cursor.close()
-        db.close()
-
-        # 결과 반환
-        return result
+        return count == 1
 
     except OperationalError as e:
         print(f'error: {e}')
